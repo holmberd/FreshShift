@@ -3,7 +3,9 @@ import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import AddIcon from '@material-ui/icons/Add';
-import WebIcon from '@material-ui/icons/Web';
+import TabSharpIcon from '@material-ui/icons/TabSharp';
+
+import TabManager from './tab-manager';
 
 import ArrowLeftIcon from '../../res/arrow-left.svg';
 import ArrowRightIcon from '../../res/arrow-right.svg';
@@ -27,35 +29,39 @@ export default class DemoApp extends React.Component {
         groups: {
           group0: {
             id: 'group0',
+            title: 'Will',
             type: 'mailbox',
             avatar: './will-smith.png',
-            rootTabId: 's0',
             activeTabId: 's0',
-            tabIds: ['s0', '1', '2', '3'],
+            staticTabs: ['s0'],
+            tabIds: ['1', '2', '3'],
           },
           group1: {
             id: 'group1',
+            title: 'Carlton',
             type: 'mailbox',
             avatar: './carlton.png',
-            rootTabId: 's1',
             activeTabId: 's1',
-            tabIds: ['s1'],
+            staticTabs: ['s1'],
+            tabIds: ['4'],
           },
           group2: {
             id: 'group2',
+            title: 'Hilary',
             type: 'mailbox',
             avatar: './hilary.png',
-            rootTabId: 's2',
             activeTabId: 's2',
-            tabIds: ['s2'],
+            staticTabs: ['s2'],
+            tabIds: ['5'],
           },
           group3: {
             id: 'group3',
+            title: 'Slack - Shift',
             type: 'app',
             Icon: SlackIcon,
-            rootTabId: 's3',
             activeTabId: 's3',
-            tabIds: ['s3'],
+            staticTabs: ['s3'],
+            tabIds: ['6'],
           }
         },
         tabs: {
@@ -111,6 +117,30 @@ export default class DemoApp extends React.Component {
             title: 'Google',
             url: 'https://google.com'
           },
+          '4': {
+            id: '4',
+            groupId: 'group1',
+            type: 'dynamic',
+            imageUrl: './tryshift.png',
+            title: 'The Best Way to Manage All Your Email Accounts - Shift',
+            url: 'https://tryshift.com'
+          },
+          '5': {
+            id: '5',
+            groupId: 'group2',
+            type: 'dynamic',
+            imageUrl: './tryshift.png',
+            title: 'The Best Way to Manage All Your Email Accounts - Shift',
+            url: 'https://tryshift.com'
+          },
+          '6': {
+            id: '6',
+            groupId: 'group3',
+            type: 'dynamic',
+            imageUrl: './tryshift.png',
+            title: 'The Best Way to Manage All Your Email Accounts - Shift',
+            url: 'https://tryshift.com'
+          },
         }
       }
     }
@@ -143,11 +173,12 @@ export default class DemoApp extends React.Component {
     this.setState(state => {
       const groupId = state.activeGroupId;
       const activeGroup = state.entities.groups[groupId];
+      const [homeTabId] = activeGroup.staticTabs;
       return {
         entities: {
           groups: {
             ...state.entities.groups,
-            [groupId]: { ...activeGroup, activeTabId: activeGroup.rootTabId },
+            [groupId]: { ...activeGroup, activeTabId: homeTabId },
           },
           tabs: { ...state.entities.tabs }
         }
@@ -198,7 +229,7 @@ export default class DemoApp extends React.Component {
             <div className={classes.topbarRight}>
               <div className={classes.staticButtons}>
                 { activeGroup.type === 'mailbox' && <TopbarButton className='gmail' Icon={GmailIcon} onClick={this.handleOpenGmailClick} /> }
-                <TopbarButton className='tab-manager' Icon={WebIcon} />
+                <TopbarButton className='tab-manager' Icon={TabSharpIcon} />
               </div>
             </div>
 
@@ -255,8 +286,12 @@ export default class DemoApp extends React.Component {
           </div>
 
           <div className={classes.content}>
-            <img src={activeTab.imageUrl}/>
-            {/* <iframe src="http://localhost:8000" width='100%' frameBorder="0" allowfullscreen sandbox></iframe> */}
+            <TabManager
+              activeGroupId={activeGroupId}
+              groups={Object.values(this.state.entities.groups)}
+              tabs={Object.values(this.state.entities.tabs).filter(tab => tab.type !== 'static')}
+            />
+            <img src={activeTab.imageUrl} alt='content' />
           </div>
         </div>
       </div>

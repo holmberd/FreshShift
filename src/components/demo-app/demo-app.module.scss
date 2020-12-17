@@ -166,9 +166,11 @@
           :global(.topbar-button.tab-manager) {
             :global(.MuiIconButton-root) {
               border-right: none;
+              border-top-right-radius: 6px;
+
               :global(.MuiSvgIcon-root) {
                 font-size: 20px;
-                color: #f3f3f3;
+                color: #f5f7fa;
               }
             }
           }
@@ -301,11 +303,16 @@
             font-size: 34px;
           }
         }
+
+        :global(.sidebar-button.more-button) {
+          border-bottom-left-radius: 6px;
+        }
       }
 
     }
 
     .content {
+      position: relative;
       grid-area: content;
       display: flex;
       height: 100%;
@@ -314,12 +321,34 @@
       border-top-left-radius: 6px;
       border-bottom-right-radius: 6px;
 
-      iframe {
-      }
-
       img {
         max-width: 100%;
       }
+
+      .tab-manager {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 340px;
+        background-color: #272934;
+        border-left: 1px solid #343745;
+        z-index: 1;
+
+        .tab-manager-search {
+          height: 80px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-bottom: 1px solid #343745;
+        }
+
+        .tab-manager-tree {
+          padding: 20px;
+          color: #fff;
+        }
+      }
+
     }
   }
 

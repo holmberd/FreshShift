@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120px" height="120px" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="40" height="40" rx="2.75862069"></rect>
+    </defs>
+    <g id="Icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Shift-Logo-Menu" transform="translate(40.000000, 40.000000)">
+            <g id="Group">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Rectangle-12"></g>
+                <rect id="Rectangle-14" fill="#4285F4" mask="url(#mask-2)" x="0" y="0" width="11" height="10"></rect>
+                <rect id="Rectangle-14-Copy" fill="#41B161" mask="url(#mask-2)" x="0" y="10" width="11" height="10"></rect>
+                <rect id="Rectangle-14-Copy-2" fill="#FBC32E" mask="url(#mask-2)" x="0" y="20" width="11" height="10"></rect>
+                <rect id="Rectangle-14-Copy-3" fill="#EB4E43" mask="url(#mask-2)" x="0" y="29.6551724" width="11" height="10.3448276"></rect>
+                <path d="M4,2.74936199 C4,1.23093129 5.23920149,0 6.76508337,0 L37.2349166,0 C38.76203,0 40,1.24098301 40,2.74936199 L40,37.250638 C40,38.7690687 38.7607985,40 37.2349166,40 L6.76508337,40 C5.23796999,40 4,38.759017 4,37.250638 L4,2.74936199 Z" id="Rectangle-12" fill="#343745" mask="url(#mask-2)"></path>
+                <path d="M16.0304345,27.6765469 C15.7607189,27.4138459 15.7644363,26.9860409 16.0411115,26.7187241 L22.4730289,20.5043619 C22.7486412,20.238072 22.7596039,19.8119607 22.4888583,19.54405 L16.0906977,13.212881 C15.8238277,12.9488052 15.8282549,12.519704 16.0975554,12.2574084 L17.9308853,10.4717659 C18.2015427,10.2081487 18.635809,10.2038887 18.9171092,10.4781043 L28.2116321,19.5385418 C28.4856511,19.8056596 28.4929323,20.2307041 28.2116321,20.5036875 L18.9171092,29.5234097 C18.6430902,29.7893272 18.1950528,29.7848698 17.9325907,29.5292335 L16.0304345,27.6765469 Z" id="Path-4" fill="#FFFFFF" mask="url(#mask-2)"></path>
+            </g>
+        </g>
+    </g>
+</svg>

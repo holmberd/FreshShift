@@ -1,0 +1,37 @@
+.search-input {
+  position: relative;
+  flex-grow: 1;
+
+  .search-icon {
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 4px;
+    bottom: 0;
+    width: 30px;
+    justify-content: center;
+    align-items: center;
+
+    .MuiSvgIcon-root {
+      color: #fff;
+      font-size: 16px;
+    }
+  }
+
+  .outline-input {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #17181e;
+    color: #c0c7d1;
+    border: 1px solid #343745;
+    font-size: 14px;
+    padding: 0 12px 0 34px;
+
+    &:active, &:focus {
+      outline: none;
+      border: 1px solid #484c61;
+    }
+  }
+}
