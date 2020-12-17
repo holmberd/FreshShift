@@ -15,7 +15,7 @@ import SlackIcon from '../../res/slack.svg';
 import GmailIcon from '../../res/gmail.svg';
 import CloseTabIcon from '../../res/close-tab.svg';
 
-import classes from './demoApp.module.scss';
+import classes from './demo-app.module.scss';
 
 export default class DemoApp extends React.Component {
   constructor(props) {

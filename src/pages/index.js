@@ -1,8 +1,8 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 
-import Layout from '../components/Layout';
-import DemoApp from '../components/DemoApp';
+import Layout from '../components/layout';
+import DemoApp from '../components/demo-app';
 
 import classes from './main.module.scss';
 
