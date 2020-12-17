@@ -7,7 +7,7 @@ import WebIcon from '@material-ui/icons/Web';
 
 import ArrowLeftIcon from '../../res/arrow-left.svg';
 import ArrowRightIcon from '../../res/arrow-right.svg';
-import ReloadIcon from '../../res/Reload.svg';
+import ReloadIcon from '../../res/reload.svg';
 import SearchIcon from '../../res/search.svg';
 import DotsIcon from '../../res/dots.svg';
 import AddAppsIcon from '../../res/add-apps.svg';
