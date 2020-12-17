@@ -70,10 +70,64 @@
       .topbar-left {
         height: 100%;
         display: flex;
+        flex-grow: 1;
 
         .browser-buttons {
           display: flex;
           height: 100%;
+        }
+
+        .tabs {
+          display: flex;
+          flex-grow: 1;
+          flex-wrap: nowrap;
+
+          .tab {
+            position: relative;
+            display: flex;
+            flex-basis: 230px;
+            height: 38px;
+            align-items: center;
+            padding: 0 12px;
+            color: #C0C7D1;
+            transition: flex-basis 0.25s;
+            cursor: pointer;
+            box-shadow: inset -1px -1px 0 #3a3d4d;
+
+            &:global(.active) {
+              color: #000000;
+              box-shadow: inset 0px 2px 0 #1f87ff, -1px 0 0 #3a3d4d, 1px 0 0 #3a3d4d;
+              background-color: #f5f6fa;
+            }
+
+            .tab-favicon {
+              display: flex;
+            }
+
+            .tab-title {
+              margin-left: 6px;
+              max-width: 165px;
+              font-size: 12px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              user-select: none;
+              flex-grow: 1;
+            }
+
+            .tab-close {
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              :global(.MuiIconButton-root) {
+                :global(.MuiSvgIcon-root) {
+                  font-size: 10px;
+                }
+              }
+            }
+          }
         }
 
         :global(.topbar-button.add-tab) {
@@ -114,7 +168,7 @@
               border-right: none;
               :global(.MuiSvgIcon-root) {
                 font-size: 20px;
-                color: #cfd0d3;
+                color: #f3f3f3;
               }
             }
           }
@@ -259,6 +313,9 @@
       background-color: white;
       border-top-left-radius: 6px;
       border-bottom-right-radius: 6px;
+
+      iframe {
+      }
 
       img {
         max-width: 100%;
