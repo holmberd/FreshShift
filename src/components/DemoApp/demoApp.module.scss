@@ -1,0 +1,269 @@
+.demo-app {
+  height: 620px;
+  max-width: 100%;
+
+  :global(.MuiIconButton-root) {
+    border-radius: 0;
+  }
+
+  .topbar {
+    display: flex;
+    width: 100%;
+    height: 38px;
+    background-color: #343745;
+    box-shadow: inset 0 -1px 0 0 #3a3d4d;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    align-items: center;
+
+    .toolbar-buttons {
+      margin-left: 12px;
+      margin-right: 4px;
+
+      .toolbar-button {
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+        margin-right: 9px;
+        display: inline-block;
+
+        &:global(.red) {
+          background-color: #ff6059;
+        }
+
+        &:global(.yellow) {
+          background-color: #ffbe2f;
+        }
+        &:global(.green) {
+          background-color: #2aca41;
+        }
+      }
+    }
+
+    :global(.topbar-button) {
+      display: flex;
+      max-height: 100;
+      border-left: 1px solid #3a3d4d;
+
+      :global(.MuiIconButton-root) {
+        max-width: 39px;
+        border-right: 1px solid #3a3d4d;
+        box-shadow: inset 0 -1px 0 0 #3a3d4d;
+
+        &:hover {
+          background-color: #272934;
+        }
+
+        :global(.MuiSvgIcon-root) {
+          font-size: 16px;
+          color: #9B9DAB;
+        }
+      }
+    }
+
+    .topbar-inner {
+      height: 100%;
+      display: flex;
+      flex: 1;
+      justify-content: space-between;
+
+      .topbar-left {
+        height: 100%;
+        display: flex;
+
+        .browser-buttons {
+          display: flex;
+          height: 100%;
+        }
+
+        :global(.topbar-button.add-tab) {
+          :global(.MuiIconButton-root) {
+            :global(.MuiSvgIcon-root) {
+              font-size: 24px;
+            }
+          }
+        }
+      }
+
+      .topbar-right {
+        height: 100%;
+        display: flex;
+
+        .static-buttons {
+          display: flex;
+          max-height: 100%;
+          border-left: 1px solid #3a3d4d;
+
+          :global(.topbar-button) {
+            :global(.MuiIconButton-root) {
+              width: 57px;
+              max-width: 57px;
+            }
+          }
+
+          :global(.topbar-button.gmail) {
+            :global(.MuiIconButton-root) {
+              :global(.MuiSvgIcon-root) {
+                font-size: 18px;
+              }
+            }
+          }
+
+          :global(.topbar-button.tab-manager) {
+            :global(.MuiIconButton-root) {
+              border-right: none;
+              :global(.MuiSvgIcon-root) {
+                font-size: 20px;
+                color: #cfd0d3;
+              }
+            }
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .main {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 50px auto;
+    grid-template-areas:'sidebar content';
+
+    .sidebar {
+      grid-area: sidebar;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      background-color: #272934;
+      border-bottom-left-radius: 6px;
+
+      :global(.sidebar-button) {
+        -webkit-app-region: no-drag;
+        display: flex;
+        justify-content: center;
+        max-height: 45px;
+        width: 100%;
+        box-shadow: inset -1px 0 0 0 #3a3d4d;
+
+        &:hover {
+          background-color: #313342;
+        }
+
+        :global(.MuiSvgIcon-root) {
+          font-size: 20px;
+          color: #9B9DAB;
+        }
+      }
+
+      .sidebar-top {
+        display: flex;
+        flex-direction: inherit;
+
+        :global(.sidebar-button.search-button) {
+          border-bottom: 1px solid #343745;
+          margin-bottom: 4px;
+        }
+
+        :global(.sidebar-avatar) {
+          display: flex;
+          max-width: 100%;
+          height: 50px;
+          width: 50px;
+          -webkit-app-region: no-drag;
+
+          :hover {
+            img {
+              opacity: 1;
+            }
+          }
+
+          :global(.MuiIconButton-root) {
+            max-width: 100%;
+          }
+
+          img {
+            opacity: 0.5;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-width: 1px;
+            border-style: solid;
+          }
+
+          &:global(.active) {
+            img {
+              opacity: 1;
+            }
+          }
+        }
+      }
+
+      .sidebar-bottom {
+        display: flex;
+        flex-direction: inherit;
+
+        :global(.sidebar-button.slack-button) {
+          position: relative;
+
+          :global(.MuiSvgIcon-root) {
+            font-size: 26px;
+          }
+
+          :global(.unread-badge) {
+            position: absolute;
+            background-color: #895be5;
+            height: 18px;
+            min-width: 18px;
+            font-size: 11px;
+            top: 4px;
+            left: initial;
+            right: 4px;
+            user-select: none;
+            display: flex;
+            padding: 3px;
+            color: #fff;
+            font-weight: 700;
+            line-height: 12px;
+            border-radius: 50%;
+
+            :global(.unread-badge-inner) {
+              margin: auto;
+              height: 10px;
+            }
+          }
+        }
+
+        :global(.sidebar-button.more-button), :global(.sidebar-button.add-button) {
+          border-top: 1px solid #343745;
+        }
+
+        :global(.sidebar-button.add-button) {
+          :global(.MuiSvgIcon-root) {
+            font-size: 34px;
+          }
+        }
+      }
+
+    }
+
+    .content {
+      grid-area: content;
+      display: flex;
+      height: 100%;
+      overflow: hidden;
+      background-color: white;
+      border-top-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+
+}

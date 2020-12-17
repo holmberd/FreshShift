@@ -1,9 +1,9 @@
 import React from 'react';
-import { navigate } from 'gatsby';
-
 import Container from '@material-ui/core/Container';
 
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
+import DemoApp from '../components/DemoApp';
+
 import classes from './main.module.scss';
 
 function Main() {
@@ -11,16 +11,17 @@ function Main() {
     <>
       <Layout>
         <div className={classes.root}>
-
-          <section className={classes.demo}>
-            <Container maxWidth='lg'>
-              <div>test</div>
-            </Container>
-          </section>
-        </div>
+            <div className={classes.demoContainer}>
+              <Container maxWidth='lg'>
+                <DemoApp/>
+              </Container>
+            </div>
+          </div>
       </Layout>
     </>
   );
 }
+
+
 
 export default Main;
