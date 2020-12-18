@@ -59,6 +59,12 @@
         padding-top: 12px;
         border-bottom: 1px solid #343745;
       }
+
+      :global(.MuiIconButton-root:hover) {
+        svg {
+          color: #fff !important;
+        }
+      }
     }
 
     .tab-tree-item-root {
