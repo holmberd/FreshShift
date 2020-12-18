@@ -44,7 +44,7 @@ export default class DemoApp extends React.Component {
             avatar: './carlton.png',
             activeTabId: 's1',
             staticTabs: ['s1'],
-            tabIds: ['4', '8', '9', '10', '11'],
+            tabIds: ['4', '8', '9', '10', '11', '14', '15', '16', '17', '18', '19'],
           },
           group2: {
             id: 'group2',
@@ -53,7 +53,7 @@ export default class DemoApp extends React.Component {
             avatar: './hilary.png',
             activeTabId: 's2',
             staticTabs: ['s2'],
-            tabIds: ['5', '7'],
+            tabIds: ['5', '7', '12', '2', '4', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
           },
           group3: {
             id: 'group3',
@@ -62,7 +62,7 @@ export default class DemoApp extends React.Component {
             Icon: SlackIcon,
             activeTabId: 's3',
             staticTabs: ['s3'],
-            tabIds: ['6', '7'],
+            tabIds: ['35', '6', '7', '13', '3', '31', '32', '33', '34'],
           },
           group4: {
             id: 'group4',
@@ -115,14 +115,14 @@ export default class DemoApp extends React.Component {
             id: '2',
             type: 'dynamic',
             imageUrl: './google.jpg',
-            title: 'Google',
+            title: 'will shift - Google Search',
             url: 'https://google.com'
           },
           '3': {
             id: '3',
             type: 'dynamic',
             imageUrl: './google.jpg',
-            title: 'Google',
+            title: 'fresh prince of tabs - Google Search',
             url: 'https://google.com'
           },
           '4': {
@@ -180,6 +180,174 @@ export default class DemoApp extends React.Component {
             imageUrl: './google.jpg',
             title: 'Shift | Grow',
             url: 'https://app.gogrow.com'
+          },
+          '12': {
+            id: '12',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Drive | Things and Stuff',
+            url: 'https://drive.google.com'
+          },
+          '13': {
+            id: '13',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Vivaldi',
+            url: 'https://vivaldi.com'
+          },
+          '14': {
+            id: '14',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Nineties nostalgia | Fresh prince of bel air, Fresh prince, Prince of bel air',
+            url: 'https://pinterest.com'
+          },
+          '15': {
+            id: '15',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Rainbows | Unicorns | Spaceships',
+            url: 'https://pinterest.com'
+          },
+          '16': {
+            id: '16',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Winter Forest | Snow | Mountains',
+            url: 'https://pinterest.com'
+          },
+          '17': {
+            id: '17',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Text om någonting',
+            url: 'https://pinterest.com'
+          },
+          '18': {
+            id: '18',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Best presentation ever',
+            url: 'https://pinterest.com'
+          },
+          '19': {
+            id: '19',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Critics admit defeat',
+            url: 'https://pinterest.com'
+          },
+          '20': {
+            id: '20',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Important document Alpha - Google docs',
+            url: 'https://docs.google.com'
+          },
+          '21': {
+            id: '21',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Important document Beta - Google docs',
+            url: 'https://docs.google.com'
+          },
+          '22': {
+            id: '22',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Important document Gamma - Google docs',
+            url: 'https://docs.google.com'
+          },
+          '23': {
+            id: '23',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Important document Delta - Google docs',
+            url: 'https://docs.google.com'
+          },
+          '24': {
+            id: '24',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Important document Epsilon - Google docs',
+            url: 'https://docs.google.com'
+          },
+          '25': {
+            id: '25',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Important document Zeta - Google docs',
+            url: 'https://docs.google.com'
+          },
+          '26': {
+            id: '26',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Important document Eta - Google docs',
+            url: 'https://docs.google.com'
+          },
+          '27': {
+            id: '27',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Important document Theta - Google docs',
+            url: 'https://docs.google.com'
+          },
+          '28': {
+            id: '28',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Important document Lota - Google docs',
+            url: 'https://docs.google.com'
+          },
+          '29': {
+            id: '29',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Important document Kappa - Google docs',
+            url: 'https://docs.google.com'
+          },
+          '30': {
+            id: '30',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Important document Lambda - Google docs',
+            url: 'https://docs.google.com'
+          },
+          '31': {
+            id: '31',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'ECMAScript 2015 (ES6) and beyond | Node.js',
+            url: 'https://nodejs.org'
+          },
+          '32': {
+            id: '32',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Index | Node.js v14.15.3 Documentation',
+            url: 'https://nodejs.org'
+          },
+          '33': {
+            id: '33',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'N-API | Node.js v14.15.3 Documentation',
+            url: 'https://nodejs.org'
+          },
+          '34': {
+            id: '34',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Crypto | Node.js v14.15.3 Documentation',
+            url: 'https://nodejs.org'
+          },
+          '35': {
+            id: '35',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Download | Node.js',
+            url: 'https://nodejs.org'
           },
         }
       }
@@ -309,7 +477,7 @@ export default class DemoApp extends React.Component {
 
             <div className={classes.topbarRight}>
               <div className={classes.staticButtons}>
-                { activeGroup.type === 'mailbox' && <TopbarButton className='gmail' Icon={GmailIcon} onClick={this.handleOpenGmailClick} /> }
+                { activeGroup.type === 'mailbox' && <TopbarButton isActive={activeTab.type === 'static'} className='gmail' Icon={GmailIcon} onClick={this.handleOpenGmailClick} /> }
                 <TopbarButton
                   className='tab-manager'
                   Icon={TabSharpIcon}
