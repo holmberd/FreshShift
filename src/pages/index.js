@@ -18,6 +18,11 @@ function Main() {
             </div>
           </div>
       </Layout>
+      <img src='./gmail.jpg' style={{display: 'none'}} />
+      <img src='./freshprincestore.jpg' style={{display: 'none'}} />
+      <img src='./google.jpg' style={{display: 'none'}} />
+      <img src='./slack.jpg' style={{display: 'none'}} />
+      <img src='./tryshift.jpg' style={{display: 'none'}} />
     </>
   );
 }

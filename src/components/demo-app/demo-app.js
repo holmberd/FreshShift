@@ -33,9 +33,9 @@ export default class DemoApp extends React.Component {
             title: 'Inbox - Will',
             type: 'mailbox',
             avatar: './will-smith.png',
-            activeTabId: '7',
+            activeTabId: 'start',
             staticTabs: ['s0'],
-            tabIds: ['7', '1', '2', '3'],
+            tabIds: ['start', '7', '1'],
           },
           group1: {
             id: 'group1',
@@ -75,6 +75,11 @@ export default class DemoApp extends React.Component {
           }
         },
         tabs: {
+          'start': {
+            id: 'start',
+            title: 'Shift - Prince of Tabs',
+            url: 'https://tryshift.com'
+          },
           's0': {
             id: 's0',
             type: 'static',
@@ -269,12 +274,8 @@ export default class DemoApp extends React.Component {
     const { isTabManagerOpen, activeGroupId, entities: { groups, tabs }} = this.state;
     const activeGroup = groups[activeGroupId];
 
-    console.log('activeGroup', activeGroup);
-
     const activeTabId = activeGroup.activeTabId;
     const activeTab = tabs[activeTabId];
-
-    console.log('activeTab', activeTab);
 
     const activeGroupTabs = activeGroup.tabIds
       .map(id => tabs[id])
@@ -391,7 +392,9 @@ export default class DemoApp extends React.Component {
               onOpenTab={this.handleOpenTab}
               onCloseTab={this.handleCloseTab}
             />
-            <img src={activeTab.imageUrl} alt='content' />
+            {activeTabId === 'start' && <iframe frameborder="0" style={{overflow: 'hidden', height: '100%', width: '100%'}} height="100%" width="100%" src="https://docs.google.com/presentation/d/e/2PACX-1vS-BW3aZBFjJEpkWnm35i_M2bBKikGoa2i2S3UyMPiR25ZXo7OImPstPYcx9jR39UVmZbEC9oKeS1lD/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>}
+            {activeTabId !== 'start' && <img src={activeTab.imageUrl} alt='content' />}
+
           </div>
         </div>
       </div>
