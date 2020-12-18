@@ -7,6 +7,7 @@
   background-color: #272934;
   border-left: 1px solid #343745;
   z-index: 1;
+  overflow-y: auto;
 
   .tab-manager-search {
     height: 80px;
@@ -18,7 +19,7 @@
   }
 
   .tab-manager-tree {
-    padding: 20px 30px;
+    padding: 20px 20px;
     color: #fff;
 
     .close-tab-button {
@@ -41,7 +42,7 @@
         }
 
         :global(.MuiTreeItem-group) {
-          margin-left: 14px;
+          margin-left: 24px;
           margin-bottom: 6px;
           margin-top: 6px;
         }

@@ -6,6 +6,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
+import Tooltip from '@material-ui/core/Tooltip';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 import Input from '../input';
 
@@ -71,16 +74,17 @@ export default class TabManager extends React.Component {
   }
 
   handleCloseTab = (tabId) => {
-    console.log('closetab', tabId);
+    this.props.onCloseTab(tabId);
   }
 
   render() {
     const { isOpen, groups, tabs } = this.props;
     const { visibleTabIds, isSearching } = this.state;
 
-    console.log('visibleTabIds', visibleTabIds);
-
     const visibleTabs = tabs.filter(tab => visibleTabIds.includes(tab.id));
+
+    console.log('visibleTabs', visibleTabs);
+
     const visibleGroups = isSearching ? groups
       .filter(group => group.tabIds.some(tabId => visibleTabIds.includes(tabId))) : groups;
 
@@ -119,8 +123,28 @@ export default class TabManager extends React.Component {
                       : <SvgIcon style={{ fontSize: 18 }}><group.Icon /></SvgIcon>
                     }</div>
                     <div style={{ marginLeft: 10, display: 'flex', justifyContent: 'space-between', flexGrow: 1, userSelect: 'none' }}>
-                      <div>{group.type === 'mailbox' ? `Inbox - ${group.title}` : `${group.title}`}</div>
-                      {Boolean(group.tabIds.length) && <div style={{ color: 'gray' }}>{group.tabIds.length}</div> }
+                      <div>
+                        {`${group.title}`}
+                        <span style={{ color: 'gray' }}>{` (${group.tabIds.length})`}</span>
+                      </div>
+                      <div style={{ display: 'flex', gap: 4 }}>
+                        <Tooltip title='Create tab' aria-label='create tab'>
+                          <div>
+                            <IconButton size='small'>
+                              <AddIcon fontSize='inherit' style={{ color: '#8f93a3' }}/>
+                            </IconButton>
+                          </div>
+                        </Tooltip>
+                        <Tooltip title='Close tabs' aria-label='close selected'>
+                          <div>
+                            <IconButton size='small'>
+                              <DeleteOutlineIcon fontSize='inherit' style={{ color: '#8f93a3' }}/>
+                            </IconButton>
+                          </div>
+                        </Tooltip>
+                      </div>
+
+                      {/* {Boolean(group.tabIds.length) && <div style={{ color: 'gray' }}>{group.tabIds.length}</div> } */}
                     </div>
                   </div>
                 }
@@ -143,7 +167,10 @@ export default class TabManager extends React.Component {
 }
 
 function TreeTabs({ groupId, tabIds, tabs, onLabelClick, onCloseTab }) {
-  const childrenTabs = tabIds.map(tabId => tabs.find(tab => tab.id === tabId));
+  const childrenTabs = tabIds
+    .map(tabId => tabs.find(tab => tab.id === tabId))
+    .filter(Boolean);
+
   return (
     <>
       { childrenTabs.map(tab => (
@@ -154,7 +181,13 @@ function TreeTabs({ groupId, tabIds, tabs, onLabelClick, onCloseTab }) {
           label={
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div className='child-label-title'>{tab.title}</div>
-              <div className={classes.closeTabButton} onClick={(e) => onCloseTab(tab.id)}>
+              <div
+                className={classes.closeTabButton}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onCloseTab(tab.id)
+                }}
+              >
                 <IconButton style={{ padding: 4 }}>
                   <SvgIcon style={{ fontSize: 10 }}><CloseTabIcon/></SvgIcon>
                 </IconButton>

@@ -30,7 +30,7 @@ export default class DemoApp extends React.Component {
         groups: {
           group0: {
             id: 'group0',
-            title: 'Will',
+            title: 'Inbox - Will',
             type: 'mailbox',
             avatar: './will-smith.png',
             activeTabId: '7',
@@ -39,21 +39,21 @@ export default class DemoApp extends React.Component {
           },
           group1: {
             id: 'group1',
-            title: 'Carlton',
+            title: 'Inbox - Carlton',
             type: 'mailbox',
             avatar: './carlton.png',
             activeTabId: 's1',
             staticTabs: ['s1'],
-            tabIds: ['4'],
+            tabIds: ['4', '8', '9', '10', '11'],
           },
           group2: {
             id: 'group2',
-            title: 'Hilary',
+            title: 'Inbox - Hilary',
             type: 'mailbox',
             avatar: './hilary.png',
             activeTabId: 's2',
             staticTabs: ['s2'],
-            tabIds: ['5'],
+            tabIds: ['5', '7'],
           },
           group3: {
             id: 'group3',
@@ -62,41 +62,45 @@ export default class DemoApp extends React.Component {
             Icon: SlackIcon,
             activeTabId: 's3',
             staticTabs: ['s3'],
-            tabIds: ['6'],
+            tabIds: ['6', '7'],
+          },
+          group4: {
+            id: 'group4',
+            title: 'Slack - Redbrick',
+            type: 'app',
+            Icon: SlackIcon,
+            activeTabId: 's3',
+            staticTabs: ['s3'],
+            tabIds: ['7', '2', '3', '8', '9', '6', '5'],
           }
         },
         tabs: {
           's0': {
             id: 's0',
-            groupId: 'group0',
             type: 'static',
             imageUrl: './gmail.jpg',
             url: 'https://mail.google.com/mail/will'
           },
           's1': {
             id: 's1',
-            groupId: 'group1',
             type: 'static',
             imageUrl: './gmail.jpg',
             url: 'https://mail.google.com/mail/carlton'
           },
           's2': {
             id: 's2',
-            groupId: 'group2',
             type: 'static',
             imageUrl: './gmail.jpg',
             url: 'https://mail.google.com/mail/hilary'
           },
           's3': {
             id: 's3',
-            groupId: 'group3',
             type: 'static',
             imageUrl: './slack.jpg',
             url: 'https://slack.com'
           },
           '1': {
             id: '1',
-            groupId: 'group0',
             type: 'dynamic',
             imageUrl: './tryshift.jpg',
             title: 'The Best Way to Manage All Your Email Accounts - Shift',
@@ -104,7 +108,6 @@ export default class DemoApp extends React.Component {
           },
           '2': {
             id: '2',
-            groupId: 'group0',
             type: 'dynamic',
             imageUrl: './google.jpg',
             title: 'Google',
@@ -112,7 +115,6 @@ export default class DemoApp extends React.Component {
           },
           '3': {
             id: '3',
-            groupId: 'group0',
             type: 'dynamic',
             imageUrl: './google.jpg',
             title: 'Google',
@@ -120,7 +122,6 @@ export default class DemoApp extends React.Component {
           },
           '4': {
             id: '4',
-            groupId: 'group1',
             type: 'dynamic',
             imageUrl: './tryshift.jpg',
             title: 'The Best Way to Manage All Your Email Accounts - Shift',
@@ -128,7 +129,6 @@ export default class DemoApp extends React.Component {
           },
           '5': {
             id: '5',
-            groupId: 'group2',
             type: 'dynamic',
             imageUrl: './tryshift.jpg',
             title: 'The Best Way to Manage All Your Email Accounts - Shift',
@@ -136,7 +136,6 @@ export default class DemoApp extends React.Component {
           },
           '6': {
             id: '6',
-            groupId: 'group3',
             type: 'dynamic',
             imageUrl: './tryshift.jpg',
             title: 'The Best Way to Manage All Your Email Accounts - Shift',
@@ -144,11 +143,38 @@ export default class DemoApp extends React.Component {
           },
           '7': {
             id: '7',
-            groupId: 'group0',
             type: 'dynamic',
             imageUrl: './freshprincestore.jpg',
             title: 'Fresh Prince Store',
             url: 'https://freshprincestore.com/'
+          },
+          '8': {
+            id: '8',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'redbrickmedia/inboxy: Shift productivity application',
+            url: 'https://github.com'
+          },
+          '9': {
+            id: '9',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'redbrickmedia/shift-apis: Repo for everything related to the api endpoints',
+            url: 'https://github.com'
+          },
+          '10': {
+            id: '10',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Mixpanel | Product Analytics',
+            url: 'https://mixpanel.com'
+          },
+          '11': {
+            id: '11',
+            type: 'dynamic',
+            imageUrl: './google.jpg',
+            title: 'Shift | Grow',
+            url: 'https://app.gogrow.com'
           },
         }
       }
@@ -177,22 +203,42 @@ export default class DemoApp extends React.Component {
             ...state.entities.groups,
             [groupId]: { ...activeGroup, activeTabId: id },
           },
-          tabs: { ...state.entities.tabs }
+          tabs: state.entities.tabs
         }
       };
     })
   }
 
-  handleOpenTabClick = ({ id, groupId }) => {
+  handleCloseTab = (tabId) => {
     this.setState(state => {
-      const activeGroup = state.entities.groups[groupId];
+      const activeGroupId = state.activeGroupId
+      const activeGroup = state.entities.groups[activeGroupId];
       return {
         entities: {
           groups: {
             ...state.entities.groups,
-            [groupId]: { ...activeGroup, activeTabId: id },
+            [activeGroupId]: {
+              ...activeGroup,
+              activeTabId: activeGroup.activeTabId == tabId ? activeGroup.staticTabs[0] : activeGroup.activeTabId,
+              tabIds: activeGroup.tabIds.filter(id => id !== tabId),
+            }
           },
-          tabs: { ...state.entities.tabs }
+          tabs: state.entities.tabs
+        }
+      }
+    });
+  }
+
+  handleOpenTabClick = (tabId) => {
+    this.setState(state => {
+      const activeGroup = state.entities.groups[state.activeGroupId];
+      return {
+        entities: {
+          groups: {
+            ...state.entities.groups,
+            [activeGroup.id]: { ...activeGroup, activeTabId: tabId },
+          },
+          tabs: state.entities.tabs
         }
       };
     })
@@ -253,6 +299,7 @@ export default class DemoApp extends React.Component {
                     title={title}
                     isActive={activeTab.id === id}
                     onOpen={this.handleOpenTabClick}
+                    onClose={this.handleCloseTab}
                   />
                 ))}
               <TopbarButton className='add-tab' Icon={AddIcon} onClick={this.handleAddTabClick}/>
@@ -317,6 +364,17 @@ export default class DemoApp extends React.Component {
                   <div className='unread-badge-inner'>1</div>
                 </div>
               </SidebarButton>
+              <SidebarButton
+                className='slack-button-2'
+                id={groups.group4.id}
+                activeGroupId={activeGroupId}
+                Icon={groups.group4.Icon}
+                onClick={this.handleSidebarGroupClick}
+              >
+                <div className='unread-badge'>
+                  <div className='unread-badge-inner'>3</div>
+                </div>
+              </SidebarButton>
               <SidebarButton className='add-button' Icon={AddAppsIcon} />
               <SidebarButton className='more-button' Icon={DotsIcon} />
             </div>
@@ -330,6 +388,7 @@ export default class DemoApp extends React.Component {
               tabs={Object.values(this.state.entities.tabs).filter(tab => tab.type !== 'static')}
               onOpenGroup={this.handleOpenGroup}
               onOpenTab={this.handleOpenTab}
+              onCloseTab={this.handleCloseTab}
             />
             <img src={activeTab.imageUrl} alt='content' />
           </div>
@@ -339,15 +398,16 @@ export default class DemoApp extends React.Component {
   }
 }
 
-function Tab({ id, groupId, title, url, isActive, onOpen, onClose }) {
+function Tab({ id, title, url, isActive, onOpen, onClose }) {
   const handleOpenTabClick = (e) => {
     e.preventDefault();
-    onOpen({ id, groupId });
+    onOpen(id);
   }
 
   const handleCloseTabClick = (e) => {
     e.preventDefault();
-    onClose({ id, groupId });
+    e.stopPropagation();
+    onClose(id);
   }
 
   return (
