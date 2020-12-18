@@ -25,6 +25,7 @@ export default class DemoApp extends React.Component {
     this.state = {
       activeGroupId: 'group0',
       activeGroupType: 'mailbox',
+      isTabManagerOpen: false,
       entities: {
         groups: {
           group0: {
@@ -32,9 +33,9 @@ export default class DemoApp extends React.Component {
             title: 'Will',
             type: 'mailbox',
             avatar: './will-smith.png',
-            activeTabId: 's0',
+            activeTabId: '7',
             staticTabs: ['s0'],
-            tabIds: ['1', '2', '3'],
+            tabIds: ['7', '1', '2', '3'],
           },
           group1: {
             id: 'group1',
@@ -69,35 +70,35 @@ export default class DemoApp extends React.Component {
             id: 's0',
             groupId: 'group0',
             type: 'static',
-            imageUrl: './gmail.png',
+            imageUrl: './gmail.jpg',
             url: 'https://mail.google.com/mail/will'
           },
           's1': {
             id: 's1',
             groupId: 'group1',
             type: 'static',
-            imageUrl: './gmail.png',
+            imageUrl: './gmail.jpg',
             url: 'https://mail.google.com/mail/carlton'
           },
           's2': {
             id: 's2',
             groupId: 'group2',
             type: 'static',
-            imageUrl: './gmail.png',
+            imageUrl: './gmail.jpg',
             url: 'https://mail.google.com/mail/hilary'
           },
           's3': {
             id: 's3',
             groupId: 'group3',
             type: 'static',
-            imageUrl: './gmail.png',
+            imageUrl: './slack.jpg',
             url: 'https://slack.com'
           },
           '1': {
             id: '1',
             groupId: 'group0',
             type: 'dynamic',
-            imageUrl: './tryshift.png',
+            imageUrl: './tryshift.jpg',
             title: 'The Best Way to Manage All Your Email Accounts - Shift',
             url: 'https://tryshift.com'
           },
@@ -105,7 +106,7 @@ export default class DemoApp extends React.Component {
             id: '2',
             groupId: 'group0',
             type: 'dynamic',
-            imageUrl: './google.png',
+            imageUrl: './google.jpg',
             title: 'Google',
             url: 'https://google.com'
           },
@@ -113,7 +114,7 @@ export default class DemoApp extends React.Component {
             id: '3',
             groupId: 'group0',
             type: 'dynamic',
-            imageUrl: './google.png',
+            imageUrl: './google.jpg',
             title: 'Google',
             url: 'https://google.com'
           },
@@ -121,7 +122,7 @@ export default class DemoApp extends React.Component {
             id: '4',
             groupId: 'group1',
             type: 'dynamic',
-            imageUrl: './tryshift.png',
+            imageUrl: './tryshift.jpg',
             title: 'The Best Way to Manage All Your Email Accounts - Shift',
             url: 'https://tryshift.com'
           },
@@ -129,7 +130,7 @@ export default class DemoApp extends React.Component {
             id: '5',
             groupId: 'group2',
             type: 'dynamic',
-            imageUrl: './tryshift.png',
+            imageUrl: './tryshift.jpg',
             title: 'The Best Way to Manage All Your Email Accounts - Shift',
             url: 'https://tryshift.com'
           },
@@ -137,9 +138,17 @@ export default class DemoApp extends React.Component {
             id: '6',
             groupId: 'group3',
             type: 'dynamic',
-            imageUrl: './tryshift.png',
+            imageUrl: './tryshift.jpg',
             title: 'The Best Way to Manage All Your Email Accounts - Shift',
             url: 'https://tryshift.com'
+          },
+          '7': {
+            id: '7',
+            groupId: 'group0',
+            type: 'dynamic',
+            imageUrl: './freshprincestore.jpg',
+            title: 'Fresh Prince Store',
+            url: 'https://freshprincestore.com/'
           },
         }
       }
@@ -152,6 +161,26 @@ export default class DemoApp extends React.Component {
 
   handleAddTabClick = (e) => {
     // TODO: add handler logic.
+  }
+
+  handleOpenGroup = (groupId) => {
+    this.setState({ activeGroupId: groupId });
+  }
+
+  handleOpenTab = ({ id, groupId }) => {
+    this.setState(state => {
+      const activeGroup = state.entities.groups[groupId];
+      return {
+        activeGroupId: groupId,
+        entities: {
+          groups: {
+            ...state.entities.groups,
+            [groupId]: { ...activeGroup, activeTabId: id },
+          },
+          tabs: { ...state.entities.tabs }
+        }
+      };
+    })
   }
 
   handleOpenTabClick = ({ id, groupId }) => {
@@ -186,8 +215,12 @@ export default class DemoApp extends React.Component {
     })
   }
 
+  handleToggleTabManager = () => {
+    this.setState(state => ({ isTabManagerOpen: !state.isTabManagerOpen }));
+  }
+
   render() {
-    const { activeGroupId, entities: { groups, tabs }} = this.state;
+    const { isTabManagerOpen, activeGroupId, entities: { groups, tabs }} = this.state;
     const activeGroup = groups[activeGroupId];
 
     console.log('activeGroup', activeGroup);
@@ -229,7 +262,12 @@ export default class DemoApp extends React.Component {
             <div className={classes.topbarRight}>
               <div className={classes.staticButtons}>
                 { activeGroup.type === 'mailbox' && <TopbarButton className='gmail' Icon={GmailIcon} onClick={this.handleOpenGmailClick} /> }
-                <TopbarButton className='tab-manager' Icon={TabSharpIcon} />
+                <TopbarButton
+                  className='tab-manager'
+                  Icon={TabSharpIcon}
+                  onClick={this.handleToggleTabManager}
+                  isActive={isTabManagerOpen}
+                />
               </div>
             </div>
 
@@ -287,9 +325,11 @@ export default class DemoApp extends React.Component {
 
           <div className={classes.content}>
             <TabManager
-              activeGroupId={activeGroupId}
+              isOpen={isTabManagerOpen}
               groups={Object.values(this.state.entities.groups)}
               tabs={Object.values(this.state.entities.tabs).filter(tab => tab.type !== 'static')}
+              onOpenGroup={this.handleOpenGroup}
+              onOpenTab={this.handleOpenTab}
             />
             <img src={activeTab.imageUrl} alt='content' />
           </div>
@@ -347,9 +387,9 @@ function BrowserButtons() {
   );
 }
 
-function TopbarButton({ className = '', Icon, onClick }) {
+function TopbarButton({ className = '', isActive, Icon, onClick }) {
   return (
-    <div className={`topbar-button ${className}`} onClick={onClick}>
+    <div className={`topbar-button ${className} ${isActive ? 'active' : ''}`} onClick={onClick}>
       <IconButton>
         <SvgIcon>
           <Icon />
@@ -366,7 +406,7 @@ function SidebarButton({ className = '', id, activeGroupId, Icon, onClick, child
   }
 
   return (
-    <div className={`sidebar-button ${className} ${activeGroupId === id ? 'active' : ''}`} onClick={handleClick}>
+    <div className={`sidebar-button ${className} ${id && activeGroupId === id ? 'active' : ''}`} onClick={handleClick}>
       <IconButton>
         <SvgIcon><Icon/></SvgIcon>
       </IconButton>

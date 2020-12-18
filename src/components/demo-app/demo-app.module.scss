@@ -59,6 +59,12 @@
           color: #9B9DAB;
         }
       }
+
+      &:global(.active) {
+        :global(.MuiIconButton-root) {
+          background-color: #272934;
+        }
+      }
     }
 
     .topbar-inner {
@@ -210,6 +216,10 @@
           background-color: #313342;
         }
 
+        &:global(.active) {
+          background-color: #313342;
+        }
+
         :global(.MuiSvgIcon-root) {
           font-size: 20px;
           color: #9B9DAB;
@@ -318,7 +328,7 @@
       height: 100%;
       overflow: hidden;
       background-color: white;
-      border-top-left-radius: 6px;
+      // border-top-left-radius: 6px;
       border-bottom-right-radius: 6px;
 
       img {

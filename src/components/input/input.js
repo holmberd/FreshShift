@@ -6,11 +6,8 @@ import SearchIcon from '../../res/search.svg';
 
 import './input.scss';
 
-const Input = React.forwardRef(
-  (
-    { className = '', size = '', defaultValue = '', placeholder = '', type = '', onSubmit, onChange, disabled },
-    ref
-  ) => (
+function Input({ className = '', size = '', defaultValue = '', placeholder = '', type = '', onSubmit, onChange, disabled, inputRef }) {
+  return (
     <div className='search-input'>
       <div className='search-icon'>
         <SvgIcon>
@@ -18,7 +15,7 @@ const Input = React.forwardRef(
         </SvgIcon>
       </div>
       <input
-        ref={ref}
+        ref={inputRef}
         className={`outline-input ${className} ${size}`}
         onKeyUp={event => {
           if (!onSubmit) {
@@ -39,8 +36,8 @@ const Input = React.forwardRef(
         type={type}
       />
     </div>
-  )
-)
+  );
+}
 
 Input.propTypes = {
   className: PropTypes.string,

@@ -20,6 +20,24 @@ export default class TabManager extends React.Component {
       visibleTabIds: props.tabs.map(tab => tab.id),
       isSearching: false,
     };
+    this.searchInputRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.focusSearchInput()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.isOpen && this.props.isOpen) {
+      return this.focusSearchInput()
+    }
+  }
+
+  focusSearchInput() {
+    console.log('s', this.searchInputRef);
+    if (this.searchInputRef && this.searchInputRef.current) {
+      this.searchInputRef.current.focus()
+    }
   }
 
   isTabVisible(searchFilter, { url, title }) {
@@ -44,17 +62,20 @@ export default class TabManager extends React.Component {
     this.setState({ visibleTabIds: visibleTabs.map(tab => tab.id ), isSearching: true });
   }
 
-  handleParentClick = (groupId) => {
-    console.log('groupId', groupId);
+  handleGroupClick = (groupId) => {
+    this.props.onOpenGroup(groupId);
   }
 
-  handleChildClick = (tabId) => {
-    // this.props.openTab(tabId);
-    console.log('tabId', tabId);
+  handleTabClick = (res) => {
+    this.props.onOpenTab(res);
+  }
+
+  handleCloseTab = (tabId) => {
+    console.log('closetab', tabId);
   }
 
   render() {
-    const { activeGroupId, groups, tabs } = this.props;
+    const { isOpen, groups, tabs } = this.props;
     const { visibleTabIds, isSearching } = this.state;
 
     console.log('visibleTabIds', visibleTabIds);
@@ -67,10 +88,11 @@ export default class TabManager extends React.Component {
       .filter(group => group.tabIds.length)
       .map(group => group.id)
 
-    return (
+    return !isOpen ? null : (
       <div className={classes.tabManager}>
         <div className={classes.tabManagerSearch}>
           <Input
+            inputRef={this.searchInputRef}
             className={classes.tabSearch}
             type='search'
             placeholder='Search...'
@@ -79,7 +101,7 @@ export default class TabManager extends React.Component {
         </div>
         <div className={classes.tabManagerTree}>
           <TreeView
-            className={classes.root}
+            className={classes.treeViewRoot}
             defaultCollapseIcon={<ExpandMoreIcon />}
             defaultExpandIcon={<ChevronRightIcon />}
             defaultExpanded={defaultExpanded}
@@ -87,6 +109,7 @@ export default class TabManager extends React.Component {
           >
             {visibleGroups.map(group => (
               <TreeItem
+                className={classes.groupTreeItemRoot}
                 key={group.id}
                 nodeId={group.id}
                 label={
@@ -95,15 +118,21 @@ export default class TabManager extends React.Component {
                       ? <TreeParentIcon src={group.avatar} />
                       : <SvgIcon style={{ fontSize: 18 }}><group.Icon /></SvgIcon>
                     }</div>
-                    <div style={{ marginLeft: 6, display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ marginLeft: 10, display: 'flex', justifyContent: 'space-between', flexGrow: 1, userSelect: 'none' }}>
                       <div>{group.type === 'mailbox' ? `Inbox - ${group.title}` : `${group.title}`}</div>
-                      {Boolean(group.tabIds.length) && <div>{group.tabIds.length}</div> }
+                      {Boolean(group.tabIds.length) && <div style={{ color: 'gray' }}>{group.tabIds.length}</div> }
                     </div>
                   </div>
                 }
-                onLabelClick={(e) => { e.preventDefault(); this.handleParentClick(group.id)}}
+                onLabelClick={(e) => { e.preventDefault(); this.handleGroupClick(group.id)}}
               >
-                <TreeTabs tabs={visibleTabs} tabIds={group.tabIds} onLabelClick={this.handleChildClick}/>
+                <TreeTabs
+                  groupId={group.id}
+                  tabs={visibleTabs}
+                  tabIds={group.tabIds}
+                  onLabelClick={this.handleTabClick}
+                  onCloseTab={this.handleCloseTab}
+                />
               </TreeItem>
             ))}
           </TreeView>
@@ -113,26 +142,27 @@ export default class TabManager extends React.Component {
   }
 }
 
-function TreeTabs({ tabIds, tabs, onLabelClick }) {
+function TreeTabs({ groupId, tabIds, tabs, onLabelClick, onCloseTab }) {
   const childrenTabs = tabs.filter(tab => tabIds.includes(tab.id));
   return (
     <>
       { childrenTabs.map(tab => (
         <TreeItem
           key={tab.id}
+          className={classes.tabTreeItemRoot}
           nodeId={tab.id}
           label={
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div className='child-label-title'>{tab.title}</div>
-              <div style={{ display: 'flex' }}>
-                <IconButton style={{ padding: 2 }}>
+              <div className={classes.closeTabButton} onClick={(e) => onCloseTab(tab.id)}>
+                <IconButton style={{ padding: 4 }}>
                   <SvgIcon style={{ fontSize: 10 }}><CloseTabIcon/></SvgIcon>
                 </IconButton>
               </div>
             </div>
           }
           icon={<TreeTabIcon url={tab.url} />}
-          onLabelClick={(e) => onLabelClick(tab.id)}
+          onLabelClick={(e) => onLabelClick({ id: tab.id, groupId })}
         />
       ))}
     </>
