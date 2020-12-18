@@ -44,7 +44,7 @@ export default class DemoApp extends React.Component {
             avatar: './carlton.png',
             activeTabId: 's1',
             staticTabs: ['s1'],
-            tabIds: ['4', '8', '9', '10', '11', '14', '15', '16', '17', '18', '19'],
+            tabIds: ['4', '10', '11', '14', '15', '16', '17', '18', '19'],
           },
           group2: {
             id: 'group2',
@@ -53,7 +53,7 @@ export default class DemoApp extends React.Component {
             avatar: './hilary.png',
             activeTabId: 's2',
             staticTabs: ['s2'],
-            tabIds: ['5', '7', '12', '2', '4', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
+            tabIds: ['12', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
           },
           group3: {
             id: 'group3',
@@ -62,7 +62,7 @@ export default class DemoApp extends React.Component {
             Icon: SlackIcon,
             activeTabId: 's3',
             staticTabs: ['s3'],
-            tabIds: ['35', '6', '7', '13', '3', '31', '32', '33', '34'],
+            tabIds: ['35', '6', '13', '31', '32', '33', '34'],
           },
           group4: {
             id: 'group4',
@@ -71,7 +71,7 @@ export default class DemoApp extends React.Component {
             Icon: SlackIcon,
             activeTabId: 's3',
             staticTabs: ['s3'],
-            tabIds: ['7', '2', '3', '8', '9', '6', '5'],
+            tabIds: ['2', '3', '8', '9', '5'],
           }
         },
         tabs: {

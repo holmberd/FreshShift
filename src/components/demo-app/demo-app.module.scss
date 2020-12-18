@@ -46,7 +46,7 @@
 
     :global(.topbar-button) {
       display: flex;
-      max-height: 100;
+      max-height: 100%;
       border-left: 1px solid #3a3d4d;
 
       :global(.MuiIconButton-root) {
@@ -98,7 +98,7 @@
           overflow: auto;
 
           .tab {
-            overflow: auto;
+            overflow: hidden;
             position: relative;
             display: flex;
             flex-basis: 230px;
