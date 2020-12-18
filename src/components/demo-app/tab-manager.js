@@ -143,7 +143,7 @@ export default class TabManager extends React.Component {
 }
 
 function TreeTabs({ groupId, tabIds, tabs, onLabelClick, onCloseTab }) {
-  const childrenTabs = tabs.filter(tab => tabIds.includes(tab.id));
+  const childrenTabs = tabIds.map(tabId => tabs.find(tab => tab.id === tabId));
   return (
     <>
       { childrenTabs.map(tab => (
