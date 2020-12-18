@@ -33,7 +33,10 @@ export default class TabManager extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (!prevProps.isOpen && this.props.isOpen) {
-      return this.focusSearchInput()
+      this.focusSearchInput()
+    }
+    if (prevProps.tabs !== this.props.tabs) {
+      this.setState({ visibleTabIds: this.props.tabs.map(tab => tab.id) })
     }
   }
 
@@ -75,6 +78,14 @@ export default class TabManager extends React.Component {
 
   handleCloseTab = (tabId) => {
     this.props.onCloseTab(tabId);
+  }
+
+  handleCloseAllTabs = (groupId) => {
+    this.props.onCloseAllTabs(groupId);
+  }
+
+  handleCreateTab = (groupId) => {
+    this.props.onCreateTab(groupId);
   }
 
   render() {
@@ -128,14 +139,14 @@ export default class TabManager extends React.Component {
                       <div style={{ display: 'flex', gap: 4 }}>
                         <Tooltip title='Create tab' aria-label='create tab'>
                           <div>
-                            <IconButton size='small'>
+                            <IconButton size='small' onClick={e => this.handleCreateTab(group.id)}>
                               <AddIcon fontSize='inherit' style={{ color: '#8f93a3' }}/>
                             </IconButton>
                           </div>
                         </Tooltip>
                         <Tooltip title='Close tabs' aria-label='close selected'>
                           <div>
-                            <IconButton size='small'>
+                            <IconButton size='small' onClick={e => this.handleCloseAllTabs(group.id)}>
                               <DeleteOutlineIcon fontSize='inherit' style={{ color: '#8f93a3' }}/>
                             </IconButton>
                           </div>

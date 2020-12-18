@@ -354,6 +354,17 @@ export default class DemoApp extends React.Component {
     }
   }
 
+  createTab() {
+    const id = makeid(6);
+    return {
+      id,
+      type: 'dynamic',
+      imageUrl: './google.jpg',
+      title: 'Google Search',
+      url: 'https://google.com'
+    };
+  }
+
   handleSidebarGroupClick = (id) => {
     this.setState({ activeGroupId: id });
   }
@@ -402,7 +413,52 @@ export default class DemoApp extends React.Component {
     });
   }
 
+  handleCloseAllTabs = (groupId) => {
+    if (!groupId) {
+      return;
+    }
+    this.setState(state => {
+      return {
+        entities: {
+          ...state.entities,
+          groups: {
+            ...state.entities.groups,
+            [groupId]: {
+              ...state.entities.groups[groupId],
+              tabIds: []
+            }
+          }
+        },
+      }
+    });
+  }
+
+  handleCreateTab = (groupId) => {
+    if (!groupId) {
+      return;
+    }
+    const newTab = this.createTab()
+    this.setState(state => {
+      const activeGroup = state.entities.groups[groupId];
+      return {
+        entities: {
+          groups: {
+            ...state.entities.groups,
+            [groupId]: { ...activeGroup, tabIds: [...activeGroup.tabIds, newTab.id], activeTabId: newTab.id },
+          },
+          tabs: {
+            ...state.entities.tabs,
+            [newTab.id]: newTab,
+          },
+        }
+      };
+    })
+  }
+
   handleOpenTabClick = (tabId) => {
+    if (!tabId) {
+      return;
+    }
     this.setState(state => {
       const activeGroup = state.entities.groups[state.activeGroupId];
       return {
@@ -561,6 +617,8 @@ export default class DemoApp extends React.Component {
               onOpenGroup={this.handleOpenGroup}
               onOpenTab={this.handleOpenTab}
               onCloseTab={this.handleCloseTab}
+              onCloseAllTabs={this.handleCloseAllTabs}
+              onCreateTab={this.handleCreateTab}
             />
             {activeTabId === 'start' && <iframe frameborder="0" style={{overflow: 'hidden', height: '100%', width: '100%'}} height="100%" width="100%" src="https://docs.google.com/presentation/d/e/2PACX-1vS-BW3aZBFjJEpkWnm35i_M2bBKikGoa2i2S3UyMPiR25ZXo7OImPstPYcx9jR39UVmZbEC9oKeS1lD/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>}
             {activeTabId !== 'start' && <img src={activeTab.imageUrl} alt='content' />}
@@ -662,5 +720,15 @@ function Avatar({ className = '', id, activeGroupId, imageUrl, color, onClick })
       </IconButton>
     </div>
   );
+}
+
+function makeid(length) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for ( let i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }
 
