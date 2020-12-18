@@ -385,6 +385,7 @@ export default class DemoApp extends React.Component {
             <TabManager
               isOpen={isTabManagerOpen}
               groups={Object.values(this.state.entities.groups)}
+              tabIds={this.state.entities.groups[this.state.activeGroupId].tabIds}
               tabs={Object.values(this.state.entities.tabs).filter(tab => tab.type !== 'static')}
               onOpenGroup={this.handleOpenGroup}
               onOpenTab={this.handleOpenTab}

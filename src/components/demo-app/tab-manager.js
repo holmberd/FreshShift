@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import Input from '../input';
 
@@ -139,6 +140,13 @@ export default class TabManager extends React.Component {
                           <div>
                             <IconButton size='small'>
                               <DeleteOutlineIcon fontSize='inherit' style={{ color: '#8f93a3' }}/>
+                            </IconButton>
+                          </div>
+                        </Tooltip>
+                        <Tooltip title='More...' aria-label='more'>
+                          <div>
+                            <IconButton size='small'>
+                              <MoreVertIcon fontSize='inherit' style={{ color: '#8f93a3' }}/>
                             </IconButton>
                           </div>
                         </Tooltip>
