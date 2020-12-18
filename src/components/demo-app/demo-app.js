@@ -413,11 +413,31 @@ export default class DemoApp extends React.Component {
     });
   }
 
+  handleCloseTabs = ({ groupId, ids }) => {
+    this.setState(state => {
+      const activeGroup = state.entities.groups[groupId];
+      return {
+        entities: {
+          groups: {
+            ...state.entities.groups,
+            [groupId]: {
+              ...activeGroup,
+              activeTabId: ids.includes(activeGroup.activeTabId) ? activeGroup.staticTabs[0] : activeGroup.activeTabId,
+              tabIds: activeGroup.tabIds.filter(tabId => !ids.includes(tabId)),
+            }
+          },
+          tabs: state.entities.tabs
+        }
+      }
+    });
+  }
+
   handleCloseAllTabs = (groupId) => {
     if (!groupId) {
       return;
     }
     this.setState(state => {
+      const activeGroup = state.entities.groups[groupId];
       return {
         entities: {
           ...state.entities,
@@ -425,6 +445,7 @@ export default class DemoApp extends React.Component {
             ...state.entities.groups,
             [groupId]: {
               ...state.entities.groups[groupId],
+              activeTabId: activeGroup.staticTabs[0],
               tabIds: []
             }
           }
@@ -619,6 +640,7 @@ export default class DemoApp extends React.Component {
               onCloseTab={this.handleCloseTab}
               onCloseAllTabs={this.handleCloseAllTabs}
               onCreateTab={this.handleCreateTab}
+              onCloseTabs={this.handleCloseTabs}
             />
             {activeTabId === 'start' && <iframe frameborder="0" style={{overflow: 'hidden', height: '100%', width: '100%'}} height="100%" width="100%" src="https://docs.google.com/presentation/d/e/2PACX-1vS-BW3aZBFjJEpkWnm35i_M2bBKikGoa2i2S3UyMPiR25ZXo7OImPstPYcx9jR39UVmZbEC9oKeS1lD/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>}
             {activeTabId !== 'start' && <img src={activeTab.imageUrl} alt='content' />}

@@ -10,6 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import Input from '../input';
 
@@ -23,6 +24,7 @@ export default class TabManager extends React.Component {
     this.state = {
       visibleTabIds: props.tabs.map(tab => tab.id),
       isSearching: false,
+      selectedTabs: [],
     };
     this.searchInputRef = React.createRef();
   }
@@ -88,6 +90,17 @@ export default class TabManager extends React.Component {
     this.props.onCreateTab(groupId);
   }
 
+  handleSelectTabs = (tabIds) => {
+    this.setState({ selectedTabs: tabIds });
+  }
+
+  handleCloseSelectedTabs = (groupId) => {
+    if (!this.state.selectedTabs.length) {
+      return;
+    }
+    this.props.onCloseTabs({ groupId, ids: this.state.selectedTabs });
+  }
+
   render() {
     const { isOpen, groups, tabs } = this.props;
     const { visibleTabIds, isSearching } = this.state;
@@ -119,6 +132,7 @@ export default class TabManager extends React.Component {
             defaultExpandIcon={<ChevronRightIcon />}
             defaultExpanded={defaultExpanded}
             multiSelect
+            onNodeSelect={(e, v) => this.handleSelectTabs(v)}
           >
             {visibleGroups.map(group => (
               <TreeItem
@@ -144,10 +158,17 @@ export default class TabManager extends React.Component {
                             </IconButton>
                           </div>
                         </Tooltip>
-                        <Tooltip title='Close tabs' aria-label='close selected'>
+                        <Tooltip title='Close selected' aria-label='close selected'>
+                          <div>
+                            <IconButton size='small' onClick={e => this.handleCloseSelectedTabs(group.id)}>
+                              <DeleteOutlineIcon fontSize='inherit' style={{ color: '#8f93a3' }}/>
+                            </IconButton>
+                          </div>
+                        </Tooltip>
+                        <Tooltip title='Close all' aria-label='close all tabs'>
                           <div>
                             <IconButton size='small' onClick={e => this.handleCloseAllTabs(group.id)}>
-                              <DeleteOutlineIcon fontSize='inherit' style={{ color: '#8f93a3' }}/>
+                              <ClearIcon fontSize='inherit' style={{ color: '#8f93a3' }}/>
                             </IconButton>
                           </div>
                         </Tooltip>
@@ -159,8 +180,6 @@ export default class TabManager extends React.Component {
                           </div>
                         </Tooltip>
                       </div>
-
-                      {/* {Boolean(group.tabIds.length) && <div style={{ color: 'gray' }}>{group.tabIds.length}</div> } */}
                     </div>
                   </div>
                 }
