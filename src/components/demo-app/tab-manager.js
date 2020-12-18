@@ -142,7 +142,7 @@ export default class TabManager extends React.Component {
                 label={
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     <div style={{ display: 'flex' }}>{ group.avatar
-                      ? <TreeParentIcon src={group.avatar} />
+                      ? <TreeParentIcon src={group.avatar} isActive={group.id === this.props.activeGroupId }/>
                       : <SvgIcon style={{ fontSize: 18 }}><group.Icon /></SvgIcon>
                     }</div>
                     <div style={{ marginLeft: 10, display: 'flex', justifyContent: 'space-between', flexGrow: 1, userSelect: 'none' }}>
@@ -243,8 +243,9 @@ function TreeTabIcon({ url }) {
   )
 }
 
-function TreeParentIcon({ src }) {
+function TreeParentIcon({ src, isActive }) {
+  const activeStyle = isActive ? { width: 23, height: 23, border: '1px solid #ff3333' } :  { border: '1px solid #313131' };
   return (
-    <img src={src} style={{ width: 20, height: 20, borderRadius: '50%' }} />
+    <img src={src} style={{ width: 23, height: 23, borderRadius: '50%', border: '1px solid #313131', ...activeStyle }} />
   )
 };
