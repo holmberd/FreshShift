@@ -33,9 +33,9 @@ export default class DemoApp extends React.Component {
             title: 'Inbox - Will',
             type: 'mailbox',
             avatar: './will-smith.png',
-            activeTabId: 'start',
+            activeTabId: '7',
             staticTabs: ['s0'],
-            tabIds: ['start', '7', '1'],
+            tabIds: ['7', '1'],
           },
           group1: {
             id: 'group1',
@@ -643,7 +643,7 @@ export default class DemoApp extends React.Component {
               onCloseTabs={this.handleCloseTabs}
               activeGroupId={activeGroupId}
             />
-            {activeTabId === 'start' && <iframe frameborder="0" style={{overflow: 'hidden', height: '100%', width: '100%'}} height="100%" width="100%" src="https://docs.google.com/presentation/d/e/2PACX-1vS-BW3aZBFjJEpkWnm35i_M2bBKikGoa2i2S3UyMPiR25ZXo7OImPstPYcx9jR39UVmZbEC9oKeS1lD/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>}
+            {/* {activeTabId === 'start' && <iframe frameborder="0" style={{overflow: 'hidden', height: '100%', width: '100%'}} height="100%" width="100%" src="https://docs.google.com/presentation/d/e/2PACX-1vS-BW3aZBFjJEpkWnm35i_M2bBKikGoa2i2S3UyMPiR25ZXo7OImPstPYcx9jR39UVmZbEC9oKeS1lD/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>} */}
             {activeTabId !== 'start' && <img src={activeTab.imageUrl} alt='content' />}
 
           </div>
