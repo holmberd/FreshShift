@@ -382,9 +382,9 @@ export default class DemoApp extends React.Component {
     })
   }
 
-  handleCloseTab = (tabId) => {
+  handleCloseTab = ({ groupId, id }) => {
     this.setState(state => {
-      const activeGroupId = state.activeGroupId
+      const activeGroupId = groupId || state.activeGroupId
       const activeGroup = state.entities.groups[activeGroupId];
       return {
         entities: {
@@ -392,8 +392,8 @@ export default class DemoApp extends React.Component {
             ...state.entities.groups,
             [activeGroupId]: {
               ...activeGroup,
-              activeTabId: activeGroup.activeTabId == tabId ? activeGroup.staticTabs[0] : activeGroup.activeTabId,
-              tabIds: activeGroup.tabIds.filter(id => id !== tabId),
+              activeTabId: activeGroup.activeTabId == id ? activeGroup.staticTabs[0] : activeGroup.activeTabId,
+              tabIds: activeGroup.tabIds.filter(tabId => tabId !== id),
             }
           },
           tabs: state.entities.tabs
@@ -448,6 +448,8 @@ export default class DemoApp extends React.Component {
     const activeGroupTabs = activeGroup.tabIds
       .map(id => tabs[id])
       .filter(tab => tab.type !== 'static')
+
+    console.log('Welcome Earthling...');
 
     return (
       <div className={classes.demoApp}>
@@ -579,7 +581,7 @@ function Tab({ id, title, url, isActive, onOpen, onClose }) {
   const handleCloseTabClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    onClose(id);
+    onClose({ groupId: null, id });
   }
 
   return (

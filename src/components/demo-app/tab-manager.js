@@ -38,7 +38,6 @@ export default class TabManager extends React.Component {
   }
 
   focusSearchInput() {
-    console.log('s', this.searchInputRef);
     if (this.searchInputRef && this.searchInputRef.current) {
       this.searchInputRef.current.focus()
     }
@@ -83,8 +82,6 @@ export default class TabManager extends React.Component {
     const { visibleTabIds, isSearching } = this.state;
 
     const visibleTabs = tabs.filter(tab => visibleTabIds.includes(tab.id));
-
-    console.log('visibleTabs', visibleTabs);
 
     const visibleGroups = isSearching ? groups
       .filter(group => group.tabIds.some(tabId => visibleTabIds.includes(tabId))) : groups;
@@ -193,7 +190,7 @@ function TreeTabs({ groupId, tabIds, tabs, onLabelClick, onCloseTab }) {
                 className={classes.closeTabButton}
                 onClick={(e) => {
                   e.stopPropagation();
-                  onCloseTab(tab.id)
+                  onCloseTab({ groupId, id: tab.id })
                 }}
               >
                 <IconButton style={{ padding: 4 }}>

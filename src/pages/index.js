@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container';
 
 import Layout from '../components/page-layout';
 import DemoApp from '../components/demo-app';
+import ErrorBoundary from '../components/error-boundary'
 
 import classes from './main.module.scss';
 
@@ -13,7 +14,9 @@ function Main() {
         <div className={classes.root}>
             <div className={classes.demoContainer}>
               <Container maxWidth='lg'>
-                <DemoApp/>
+                <ErrorBoundary>
+                  <DemoApp/>
+                </ErrorBoundary>
               </Container>
             </div>
           </div>
