@@ -1,6 +1,8 @@
 # FreshShift
 Two day hackweek marketing prototype demo.
 
+![screenshot](https://github.com/holmberd/FreshShift/blob/master/screenshot.png?raw=true)
+
 ### Get Started
 - `npm install`
 - `npm run develop`
